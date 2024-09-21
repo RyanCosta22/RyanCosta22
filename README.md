@@ -1,19 +1,37 @@
 
 import cv2
-from google.colab.patches import cv2_imshow  # Substituto para cv2.imshow no Colab
-import numpy as np # Importa a biblioteca NumPy
+import numpy as np
+from google.colab.patches import cv2_imshow
 
-# Carregue a imagem colorida
-imagem = cv2.imread('TesteMama.jpg')
+imagem = cv2.imread('radiodemama.jpg')
 
-# Separe os canais de cores
 azul, verde, vermelho = cv2.split(imagem)
 
-# Exiba a imagem original e cada canal separadamente
-cv2_imshow(imagem)  # Imagem Original
+imagem_mesclada = cv2.merge((azul, verde, vermelho))
 
-# Exibir canais separados
-cv2_imshow(cv2.merge([azul, np.zeros_like(azul), np.zeros_like(azul)]))  # Canal Azul
-cv2_imshow(cv2.merge([np.zeros_like(verde), verde, np.zeros_like(verde)]))  # Canal Verde
-cv2_imshow(cv2.merge([np.zeros_like(vermelho), np.zeros_like(vermelho), vermelho]))  # Canal Vermelho
+imagem_invertida = cv2.merge((vermelho, verde, azul))
+
+blank = np.zeros(imagem.shape[:2], dtype='uint8')
+
+canal_azul = cv2.merge([azul,blank,blank])
+canal_azul_gimp = cv2.merge([azul,azul,azul])
+canal_verde = cv2.merge([blank,verde,blank])
+canal_verde_gimp = cv2.merge([verde,verde,verde])
+canal_vermelho = cv2.merge([blank,blank,vermelho])
+canal_vermelho_gimp = cv2.merge([vermelho,vermelho,vermelho])
+
+cv2.imwrite('Azul.png', canal_azul)
+cv2.imwrite('Azul_gimp.png', canal_azul_gimp)
+cv2.imwrite('Verde.png', canal_verde)
+cv2.imwrite('Verde_gimp.png', canal_verde_gimp)
+cv2.imwrite('Vermelho.png', canal_vermelho)
+cv2.imwrite('Vermelho_gimp.png', canal_vermelho_gimp)
+cv2.imwrite("imagem_mesclada.png", imagem_mesclada)
+cv2.imwrite("imagem_invertida.png", imagem_invertida)
+
+cv2_imshow(canal_azul)
+cv2_imshow(canal_verde)
+cv2_imshow(canal_vermelho)
+cv2_imshow(imagem_mesclada)
+cv2_imshow(imagem_invertida)
      
