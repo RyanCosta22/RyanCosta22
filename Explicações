@@ -1,0 +1,12 @@
+
+
+Justificativas das Mudanças:
+* SRP (Single Responsibility Principle): A lógica para calcular o preço foi colocada em uma classe chamada PriceCalculator. Isso deixa cada classe com uma única função, facilitando entender e modificar o código quando necessário.
+* OCP (Open/Closed Principle): A classe Ingredient permite que a gente adicione novos ingredientes (como ExtraCheese, Pepperoni, Mushrooms) criando subclasses, sem precisar mexer na classe base. Isso facilita a expansão do sistema.
+* LSP (Liskov Substitution Principle): As subclasses de Ingredient funcionam do mesmo jeito que a classe base, sem quebrar o código. Ou seja, podemos usar qualquer subclass como um Ingredient, mantendo a consistência e o polimorfismo.
+* ISP (Interface Segregation Principle): A interface Ingredient tem apenas métodos importantes e específicos, então as classes que a implementam só dependem de coisas que realmente vão usar.
+* DIP (Dependency Inversion Principle): A classe Pizza usa uma abstração (PriceCalculator) para calcular o preço. Isso é bom porque, se precisarmos mudar a lógica de preço, a Pizza não precisa ser alterada, o que deixa o código mais flexível.
+Conclusão
+* Declaração das Classes: Todas as classes e métodos estão declarados corretamente.
+* Instância e Atribuição: As instâncias dos ingredientes, do PriceCalculator e da Pizza foram criadas e atribuídas de forma correta.
+* Overrides e Métodos Abstratos: As subclasses (ExtraCheese, Pepperoni, Mushrooms) sobrescrevem corretamente o método getPrice() da classe Ingredient, o que garante que cada ingrediente tenha seu próprio preço.
