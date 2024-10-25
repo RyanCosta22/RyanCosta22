@@ -1,0 +1,64 @@
+// Classe base de Ingredientes (SRP, OCP, ISP)
+abstract class Ingredient {
+    public abstract double getPrice();
+}
+
+// Implementação de ingredientes específicos (OCP)
+class ExtraCheese extends Ingredient {
+    @Override
+    public double getPrice() {
+        return 1.0;
+    }
+}
+
+class Pepperoni extends Ingredient {
+    @Override
+    public double getPrice() {
+        return 2.0;
+    }
+}
+
+class Mushrooms extends Ingredient {
+    @Override
+    public double getPrice() {
+        return 1.5;
+    }
+}
+
+// Classe responsável pelo cálculo do preço (SRP)
+class PriceCalculator {
+    public double calculatePrice(Ingredient[] ingredients) {
+        double price = 10.0; // Preço base
+        for (Ingredient ingredient : ingredients) {
+            price += ingredient.getPrice();
+        }
+        return price;
+    }
+}
+
+// Classe Pizza que depende da abstração PriceCalculator (DIP)
+class Pizza {
+    private Ingredient[] ingredients;
+    private PriceCalculator priceCalculator;
+
+    public Pizza(Ingredient[] ingredients, PriceCalculator priceCalculator) {
+        this.ingredients = ingredients;
+        this.priceCalculator = priceCalculator;
+    }
+
+    public double getPrice() {
+        return priceCalculator.calculatePrice(ingredients);
+    }
+}
+
+// Classe principal para executar o código
+public class Main {
+    public static void main(String[] args) {
+        Ingredient[] ingredients = { new ExtraCheese(), new Pepperoni(), new Mushrooms() };
+        PriceCalculator priceCalculator = new PriceCalculator();
+        Pizza pizza = new Pizza(ingredients, priceCalculator);
+
+        // Exibir o preço total da pizza
+        System.out.println("Preço total da pizza: " + pizza.getPrice());
+    }
+}
